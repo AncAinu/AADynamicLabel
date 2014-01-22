@@ -70,8 +70,8 @@
 	
 	NSMutableAttributedString *attributedText =	[[NSMutableAttributedString alloc] initWithString:mutableString.copy];
 	for (NSDictionary *attributs in __texts) {
-		UIFont  *font = [attributs valueForKey:@"font"] == [NSNull null] ? [attributs valueForKey:@"font"] : [self font];
-		UIColor *foregroundColor = [attributs valueForKey:@"color"] == [NSNull null] ? [attributs valueForKey:@"color"] : [self textColor];
+		UIFont  *font = [attributs valueForKey:@"font"] != [NSNull null] ? [attributs valueForKey:@"font"] : [self font];
+		UIColor *foregroundColor = [attributs valueForKey:@"color"] != [NSNull null] ? [attributs valueForKey:@"color"] : [self textColor];
 		
 		[attributedText setAttributes:@{NSFontAttributeName: font,
 										NSForegroundColorAttributeName: foregroundColor}
