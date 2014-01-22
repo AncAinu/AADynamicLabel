@@ -12,6 +12,9 @@
 
 @property (nonatomic, strong) NSMutableArray *_texts;
 
+@property (nonatomic, strong) UIFont         *_font;
+@property (nonatomic, strong) UIColor        *_textColor;
+
 @end
 
 @implementation AADynamicLabel
@@ -20,6 +23,8 @@
 - (id)init {
 	if (self = [super init]) {
 		__texts = [NSMutableArray new];
+		__font = [UIFont systemFontOfSize:[UIFont systemFontSize]];
+		__textColor = [UIColor blackColor];
 		
 		self.backgroundColor = [UIColor clearColor];
 	}
@@ -32,6 +37,17 @@
 		
     }
     return self;
+}
+
+#pragma mark SETTER
+- (void)setFont:(UIFont *)font {
+	__font = font;
+	[super setFont:font];
+}
+
+- (void)setTextColor:(UIColor *)textColor {
+	__textColor = textColor;
+	[super setTextColor:textColor];
 }
 
 #pragma mark METHODS
@@ -68,10 +84,12 @@
 		[mutableString appendString:string];
 	}
 	
-	NSMutableAttributedString *attributedText =	[[NSMutableAttributedString alloc] initWithString:mutableString.copy];
+	NSMutableAttributedString *attributedText =	[[NSMutableAttributedString alloc] initWithString:mutableString.copy
+																					   attributes:@{NSFontAttributeName: __font,
+																									NSForegroundColorAttributeName: __textColor}];
 	for (NSDictionary *attributs in __texts) {
-		UIFont  *font = [attributs valueForKey:@"font"] != [NSNull null] ? [attributs valueForKey:@"font"] : [self font];
-		UIColor *foregroundColor = [attributs valueForKey:@"color"] != [NSNull null] ? [attributs valueForKey:@"color"] : [self textColor];
+		UIFont  *font = [attributs valueForKey:@"font"] != [NSNull null] ? [attributs valueForKey:@"font"] : __font;
+		UIColor *foregroundColor = [attributs valueForKey:@"color"] != [NSNull null] ? [attributs valueForKey:@"color"] : __textColor;
 		
 		[attributedText setAttributes:@{NSFontAttributeName: font,
 										NSForegroundColorAttributeName: foregroundColor}
