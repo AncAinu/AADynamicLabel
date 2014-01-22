@@ -35,10 +35,16 @@
 }
 
 #pragma mark METHODS
+- (void)addText:(NSString *)text {
+	[self addText:text withFont:nil color:nil];
+}
+
 - (void)addText:(NSString *)text withFont:(UIFont *)font {
-	[__texts addObject:@{@"text":text, @"font":font}];
-	
-	[self resetAttributes];
+	[self addText:text withFont:font color:nil];
+}
+
+- (void)addText:(NSString *)text color:(UIColor *)color {
+	[self addText:text withFont:nil color:color];
 }
 
 - (void)addText:(NSString *)text withFont:(UIFont *)font color:(UIColor *)color{
@@ -48,8 +54,8 @@
 	}
 	
 	[__texts addObject:@{@"text":text,
-						 NSFontAttributeName:font?font:[NSNull null],
-						 NSForegroundColorAttributeName:color?color:[NSNull null],
+						 @"font":font?font:[NSNull null],
+						 @"color":color?color:[NSNull null],
 						 @"location":@(mutableString.length)}];
 	
 	[self resetAttributes];
@@ -64,7 +70,13 @@
 	
 	NSMutableAttributedString *attributedText =	[[NSMutableAttributedString alloc] initWithString:mutableString.copy];
 	for (NSDictionary *attributs in __texts) {
-		[attributedText setAttributes:attributs range:NSMakeRange([[attributs valueForKey:@"location"] integerValue], [[attributs valueForKey:@"text"] length])];
+		UIFont  *font = [attributs valueForKey:@"font"] ? [attributs valueForKey:@"font"] : [self font];
+		UIColor *foregroundColor = [attributs valueForKey:@"color"] ? [attributs valueForKey:@"color"] : [self textColor];
+		
+		[attributedText setAttributes:@{NSFontAttributeName: font,
+										NSForegroundColorAttributeName: foregroundColor}
+								range:NSMakeRange([[attributs valueForKey:@"location"] integerValue],
+												  [[attributs valueForKey:@"text"] length])];
 	}
 	
     // Set it in our UILabel and we are done!
