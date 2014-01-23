@@ -16,5 +16,4 @@ AADynamicLabel *label = [AADynamicLabel new];
 [self.view addSubview:label];
 ```
 
-Which will render you something like that :
-Beginning of my text **important word bolded,** end of my text which use the default font of my label with red point in the end.
+![AADynamicLabel example preview](http://zupimages.net/up/14/04/whhc.png)
