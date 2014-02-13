@@ -51,6 +51,11 @@
 }
 
 #pragma mark METHODS
+- (void)clearText {
+	[__texts removeAllObjects];
+	[self resetAttributes];
+}
+
 - (void)addText:(NSString *)text {
 	[self addText:text withFont:nil color:nil];
 }
