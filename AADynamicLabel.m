@@ -1,9 +1,9 @@
 //
 //  AADynamicLabel.m
-//  Iswigo
+//  AADynamicLabel
 //
 //  Created by Tancrede Chazallet on 22/01/14.
-//  Copyright (c) 2014 VIGICORP. All rights reserved.
+//  Copyright (c) 2014 AncAinu. All rights reserved.
 //
 
 #import "AADynamicLabel.h"
